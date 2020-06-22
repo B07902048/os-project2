@@ -24,8 +24,10 @@ int main (int argc, char* argv[])
 	struct timeval start;
 	struct timeval end;
 	double trans_time; //calulate the time between the device is opened and it is closed
+	
 	strcpy(file_name, argv[2]);
 	strcpy(method, argv[3]);
+	
 	if( (dev_fd = open("/dev/master_device", O_RDWR)) < 0)
 	{
 		perror("failed to open /dev/master_device\n");
@@ -60,6 +62,40 @@ int main (int argc, char* argv[])
 				ret = read(file_fd, buf, sizeof(buf)); // read from the input file
 				write(dev_fd, buf, ret);//write to the the device
 			}while(ret > 0);
+			break;
+		case 'm': //mmap
+
+			int data_sent = 0; // Bytes already sent
+			while(data_sent < file_size)
+			{
+				if( src_address = mmap(0, PAGE_SIZE, PROT_READ, MAP_SHARED, file_fd, data_sent) == -1)
+				{
+					perror("file mapped, error");
+					exit(0);
+				}
+
+				if( dst_address = mmap(0, PAGE_SIZE, PROT_WRITE, MAP_SHARED, dev_fd, data_sent) == -1)
+				{
+					perror("device mapped error");
+					exit(0);
+				}
+
+
+				do
+				{
+					int len = BUF_SIZE;
+					if(file_size - data_sent < BUF_SIZE)
+						len = file_size - data_sent;
+					memcpy(dst_address, src_address, len);
+					ioctl(dev_fd, 0x12345678, len);
+					data_sent += len;
+				} while(data_sent % PAGE_SIZE != 0 && data_sent < file_size);
+
+				ioctl(dev_fd, 0, unsigned long(src));
+
+				munmap(src_address, PAGE_SIZE);
+			
+			}	
 			break;
 	}
 
