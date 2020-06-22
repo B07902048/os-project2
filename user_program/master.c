@@ -11,6 +11,7 @@
 
 #define PAGE_SIZE 4096
 #define BUF_SIZE 512
+#define MAP_SIZE (100 * PAGE_SIZE)
 size_t get_filesize(const char* filename);//get the size of the input file
 
 
@@ -56,7 +57,7 @@ int main (int argc, char* argv[])
     }
 
     char *src, *dst;
-    
+    size_t length;
     
     switch(method[0]) 
     {
@@ -69,22 +70,22 @@ int main (int argc, char* argv[])
             break;
         case 'm': //mmap
             while (offset < file_size) {
-                if((src = mmap(NULL, PAGE_SIZE, PROT_READ, MAP_SHARED, file_fd, offset)) == (void *) -1) {
+                length = MAP_SIZE;
+                if(file_size - offset < length){
+                    length = file_size - offset;
+                }
+                if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, file_fd, offset)) == (void *) -1) {
                     perror("mapping input file");
                     return 1;
                 }
-                if((dst = mmap(NULL, PAGE_SIZE, PROT_WRITE, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
+                if((dst = mmap(NULL, length, PROT_WRITE, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
                     perror("mapping output device");
                     return 1;
                 }
-                do {
-                    int len = (offset + BUF_SIZE > file_size ? file_size % BUF_SIZE : BUF_SIZE);
-                    memcpy(dst, src, len);
-                    offset += len;
-                    ioctl(dev_fd, 0x12345678, len);
-                } while (offset < file_size && offset % PAGE_SIZE != 0);
-                ioctl(dev_fd, 0x12345676, (unsigned long)src);
-                munmap(src, PAGE_SIZE);
+                memcpy(dst, src, length);
+                offset += length;
+                ioctl(dev_fd, 0x12345676, length);
+                //munmap(src, PAGE_SIZE);
             }
             break;
     }
