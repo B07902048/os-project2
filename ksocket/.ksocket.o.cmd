@@ -1,14 +1,16 @@
-cmd_/home/waffle/OS-Project-2/ksocket/ksocket.o := gcc -Wp,-MD,/home/waffle/OS-Project-2/ksocket/.ksocket.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/5/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m64 -falign-jumps=1 -falign-loops=1 -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3 -mskip-rax-setup -mtune=generic -mno-red-zone -mcmodel=kernel -funit-at-a-time -DCONFIG_X86_X32_ABI -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_FXSAVEQ=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=thunk-extern -mindirect-branch-register -DRETPOLINE -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fstack-protector-strong -Wno-unused-but-set-variable -fno-var-tracking-assignments -g -gdwarf-4 -pg -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"ksocket"'  -DKBUILD_MODNAME='"ksocket"' -c -o /home/waffle/OS-Project-2/ksocket/.tmp_ksocket.o /home/waffle/OS-Project-2/ksocket/ksocket.c
+cmd_/home/anthony/os-project2/ksocket/ksocket.o := gcc -Wp,-MD,/home/anthony/os-project2/ksocket/.ksocket.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/5/include  -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -Iubuntu/include  -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m64 -falign-jumps=1 -falign-loops=1 -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3 -mskip-rax-setup -mtune=generic -mno-red-zone -mcmodel=kernel -funit-at-a-time -DCONFIG_X86_X32_ABI -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_FXSAVEQ=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=thunk-extern -mindirect-branch-register -fno-jump-tables -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fstack-protector-strong -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fno-merge-all-constants -fmerge-constants -fno-stack-check -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"ksocket"'  -DKBUILD_MODNAME='"ksocket"' -c -o /home/anthony/os-project2/ksocket/ksocket.o /home/anthony/os-project2/ksocket/ksocket.c
 
-source_/home/waffle/OS-Project-2/ksocket/ksocket.o := /home/waffle/OS-Project-2/ksocket/ksocket.c
+source_/home/anthony/os-project2/ksocket/ksocket.o := /home/anthony/os-project2/ksocket/ksocket.c
 
-deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
+deps_/home/anthony/os-project2/ksocket/ksocket.o := \
   include/linux/compiler_types.h \
+    $(wildcard include/config/have/arch/compiler/h.h) \
     $(wildcard include/config/enable/must/check.h) \
     $(wildcard include/config/enable/warn/deprecated.h) \
   include/linux/compiler-gcc.h \
     $(wildcard include/config/arch/supports/optimized/inlining.h) \
     $(wildcard include/config/optimize/inlining.h) \
+    $(wildcard include/config/retpoline.h) \
     $(wildcard include/config/gcov/kernel.h) \
     $(wildcard include/config/arch/use/builtin/bswap.h) \
   include/linux/module.h \
@@ -62,6 +64,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/mmu.h) \
     $(wildcard include/config/prove/locking.h) \
     $(wildcard include/config/arch/has/refcount.h) \
+    $(wildcard include/config/lock/down/kernel.h) \
     $(wildcard include/config/panic/timeout.h) \
   /usr/lib/gcc/x86_64-linux-gnu/5/include/stdarg.h \
   include/linux/linkage.h \
@@ -87,7 +90,9 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/mk7.h) \
     $(wildcard include/config/x86/p6/nop.h) \
   include/asm-generic/barrier.h \
+  include/linux/kasan-checks.h \
   include/linux/bitops.h \
+  include/linux/bits.h \
   arch/x86/include/asm/bitops.h \
     $(wildcard include/config/x86/cmov.h) \
   arch/x86/include/asm/rmwcc.h \
@@ -107,6 +112,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/paravirt.h) \
   arch/x86/include/asm/disabled-features.h \
     $(wildcard include/config/x86/intel/mpx.h) \
+    $(wildcard include/config/x86/intel/umip.h) \
     $(wildcard include/config/x86/intel/memory/protection/keys.h) \
     $(wildcard include/config/page/table/isolation.h) \
   include/asm-generic/bitops/const_hweight.h \
@@ -130,6 +136,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/early/printk.h) \
     $(wildcard include/config/printk/nmi.h) \
     $(wildcard include/config/printk.h) \
+    $(wildcard include/config/kmsg/ids.h) \
     $(wildcard include/config/dynamic/debug.h) \
   include/linux/init.h \
     $(wildcard include/config/strict/kernel/rwx.h) \
@@ -156,7 +163,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/debug/lock/alloc.h) \
   include/linux/spinlock.h \
     $(wildcard include/config/debug/spinlock.h) \
-    $(wildcard include/config/generic/lockbreak.h) \
     $(wildcard include/config/preempt.h) \
   include/linux/preempt.h \
     $(wildcard include/config/preempt/count.h) \
@@ -173,10 +179,9 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/base/small.h) \
   include/linux/percpu-defs.h \
     $(wildcard include/config/debug/force/weak/per/cpu.h) \
+    $(wildcard include/config/amd/mem/encrypt.h) \
   include/linux/thread_info.h \
     $(wildcard include/config/thread/info/in/task.h) \
-    $(wildcard include/config/debug/stack/usage.h) \
-    $(wildcard include/config/debug/kmemleak.h) \
     $(wildcard include/config/have/arch/within/stack/frames.h) \
     $(wildcard include/config/hardened/usercopy.h) \
   include/linux/bug.h \
@@ -199,7 +204,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/physical/align.h) \
   include/linux/mem_encrypt.h \
     $(wildcard include/config/arch/has/mem/encrypt.h) \
-    $(wildcard include/config/amd/mem/encrypt.h) \
   arch/x86/include/asm/mem_encrypt.h \
   arch/x86/include/uapi/asm/bootparam.h \
   include/linux/screen_info.h \
@@ -218,6 +222,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/x86.h) \
   include/uapi/video/edid.h \
   arch/x86/include/asm/page_64_types.h \
+    $(wildcard include/config/kasan/extra.h) \
     $(wildcard include/config/randomize/memory.h) \
     $(wildcard include/config/randomize/base.h) \
   arch/x86/include/asm/kaslr.h \
@@ -262,6 +267,15 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   arch/x86/include/asm/pgtable_64_types.h \
   arch/x86/include/asm/sparsemem.h \
   include/asm-generic/pgtable-nop4d.h \
+  arch/x86/include/asm/nospec-branch.h \
+  include/linux/static_key.h \
+  arch/x86/include/asm/alternative-asm.h \
+  arch/x86/include/asm/msr-index.h \
+    $(wildcard include/config/control.h) \
+    $(wildcard include/config/tdp/nominal.h) \
+    $(wildcard include/config/tdp/level/1.h) \
+    $(wildcard include/config/tdp/level/2.h) \
+    $(wildcard include/config/tdp/control.h) \
   arch/x86/include/asm/spinlock_types.h \
     $(wildcard include/config/paravirt/spinlocks.h) \
   include/asm-generic/qspinlock_types.h \
@@ -270,11 +284,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   arch/x86/include/uapi/asm/sigcontext.h \
   arch/x86/include/asm/msr.h \
   arch/x86/include/asm/msr-index.h \
-    $(wildcard include/config/control.h) \
-    $(wildcard include/config/tdp/nominal.h) \
-    $(wildcard include/config/tdp/level/1.h) \
-    $(wildcard include/config/tdp/level/2.h) \
-    $(wildcard include/config/tdp/control.h) \
   arch/x86/include/uapi/asm/errno.h \
   include/uapi/asm-generic/errno.h \
   include/uapi/asm-generic/errno-base.h \
@@ -301,7 +310,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/linux/atomic.h \
     $(wildcard include/config/generic/atomic64.h) \
   include/asm-generic/atomic-long.h \
-  include/linux/static_key.h \
   arch/x86/include/asm/paravirt.h \
     $(wildcard include/config/debug/entry.h) \
   arch/x86/include/asm/frame.h \
@@ -326,7 +334,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/linux/lockdep.h \
     $(wildcard include/config/lockdep.h) \
     $(wildcard include/config/lock/stat.h) \
-    $(wildcard include/config/lockdep/crossrelease.h) \
   include/linux/rwlock_types.h \
   arch/x86/include/asm/spinlock.h \
   arch/x86/include/asm/qspinlock.h \
@@ -345,6 +352,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/inline/spin/unlock/bh.h) \
     $(wildcard include/config/inline/spin/unlock/irq.h) \
     $(wildcard include/config/inline/spin/unlock/irqrestore.h) \
+    $(wildcard include/config/generic/lockbreak.h) \
   include/linux/rwlock_api_smp.h \
     $(wildcard include/config/inline/read/lock.h) \
     $(wildcard include/config/inline/write/lock.h) \
@@ -366,6 +374,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/inline/write/unlock/irqrestore.h) \
   include/linux/time64.h \
   include/uapi/linux/time.h \
+  include/linux/time32.h \
   include/linux/uidgid.h \
     $(wildcard include/config/multiuser.h) \
     $(wildcard include/config/user/ns.h) \
@@ -472,6 +481,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/x86/tsc.h) \
   include/generated/timeconst.h \
   include/linux/timekeeping.h \
+  include/linux/timekeeping32.h \
   include/linux/debugobjects.h \
     $(wildcard include/config/debug/objects.h) \
     $(wildcard include/config/debug/objects/free.h) \
@@ -481,7 +491,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/rcu/fanout.h) \
     $(wildcard include/config/rcu/fanout/leaf.h) \
   include/linux/completion.h \
-    $(wildcard include/config/lockdep/completions.h) \
   arch/x86/include/asm/mmzone.h \
   arch/x86/include/asm/mmzone_64.h \
   arch/x86/include/asm/smp.h \
@@ -539,15 +548,24 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   arch/x86/include/asm/xen/hypervisor.h \
   include/asm-generic/io.h \
     $(wildcard include/config/virt/to/bus.h) \
+  include/linux/logic_pio.h \
+    $(wildcard include/config/indirect/pio.h) \
+  include/linux/fwnode.h \
   include/linux/vmalloc.h \
   include/linux/llist.h \
     $(wildcard include/config/arch/have/nmi/safe/cmpxchg.h) \
   include/linux/rbtree.h \
   arch/x86/include/uapi/asm/vsyscall.h \
   include/asm-generic/fixmap.h \
+  arch/x86/include/asm/hardirq.h \
+    $(wildcard include/config/kvm/intel.h) \
+    $(wildcard include/config/have/kvm.h) \
+    $(wildcard include/config/x86/thermal/vector.h) \
+    $(wildcard include/config/x86/mce/threshold.h) \
+    $(wildcard include/config/x86/mce/amd.h) \
+    $(wildcard include/config/hyperv.h) \
   arch/x86/include/asm/io_apic.h \
   arch/x86/include/asm/irq_vectors.h \
-    $(wildcard include/config/have/kvm.h) \
     $(wildcard include/config/pci/msi.h) \
   include/linux/topology.h \
     $(wildcard include/config/use/percpu/numa/node/id.h) \
@@ -669,9 +687,10 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/epoll.h) \
     $(wildcard include/config/file/locking.h) \
     $(wildcard include/config/quota.h) \
+    $(wildcard include/config/blk/dev/loop.h) \
     $(wildcard include/config/fs/dax.h) \
-    $(wildcard include/config/mandatory/file/locking.h) \
     $(wildcard include/config/block.h) \
+    $(wildcard include/config/mandatory/file/locking.h) \
     $(wildcard include/config/migration.h) \
   include/linux/wait_bit.h \
   include/linux/kdev_t.h \
@@ -740,50 +759,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/irq/time/accounting.h) \
   include/linux/context_tracking_state.h \
     $(wildcard include/config/context/tracking.h) \
-  arch/x86/include/asm/hardirq.h \
-    $(wildcard include/config/x86/thermal/vector.h) \
-    $(wildcard include/config/x86/mce/threshold.h) \
-    $(wildcard include/config/x86/mce/amd.h) \
-    $(wildcard include/config/hyperv.h) \
-  include/linux/irq.h \
-    $(wildcard include/config/generic/irq/effective/aff/mask.h) \
-    $(wildcard include/config/generic/irq/ipi.h) \
-    $(wildcard include/config/irq/domain/hierarchy.h) \
-    $(wildcard include/config/generic/irq/migration.h) \
-    $(wildcard include/config/generic/pending/irq.h) \
-    $(wildcard include/config/hardirqs/sw/resend.h) \
-    $(wildcard include/config/generic/irq/legacy/alloc/hwirq.h) \
-    $(wildcard include/config/generic/irq/legacy.h) \
-  include/linux/irqhandler.h \
-  include/linux/irqreturn.h \
-  include/linux/io.h \
-    $(wildcard include/config/have/arch/huge/vmap.h) \
-  include/linux/slab.h \
-    $(wildcard include/config/debug/slab.h) \
-    $(wildcard include/config/failslab.h) \
-    $(wildcard include/config/have/hardened/usercopy/allocator.h) \
-    $(wildcard include/config/slab.h) \
-    $(wildcard include/config/slub.h) \
-  include/linux/kmemleak.h \
-  include/linux/kasan.h \
-  arch/x86/include/asm/irq.h \
-  arch/x86/include/asm/irq_regs.h \
-  include/linux/irqdesc.h \
-    $(wildcard include/config/irq/preflow/fasteoi.h) \
-    $(wildcard include/config/generic/irq/debugfs.h) \
-    $(wildcard include/config/sparse/irq.h) \
-    $(wildcard include/config/handle/domain/irq.h) \
-  arch/x86/include/asm/hw_irq.h \
-    $(wildcard include/config/hpet/timer.h) \
-    $(wildcard include/config/dmar/table.h) \
-    $(wildcard include/config/ht/irq.h) \
-    $(wildcard include/config/x86/uv.h) \
-    $(wildcard include/config/vmd.h) \
-  include/linux/profile.h \
-    $(wildcard include/config/profiling.h) \
-  arch/x86/include/asm/sections.h \
-  include/asm-generic/sections.h \
-  arch/x86/include/asm/extable.h \
   include/linux/list_nulls.h \
   include/linux/netdevice.h \
     $(wildcard include/config/dcb.h) \
@@ -918,6 +893,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/task/io/accounting.h) \
   include/linux/sched/task_stack.h \
     $(wildcard include/config/stack/growsup.h) \
+    $(wildcard include/config/debug/stack/usage.h) \
   include/uapi/linux/magic.h \
   arch/x86/include/asm/user32.h \
   include/uapi/linux/ethtool.h \
@@ -927,18 +903,28 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/bridge/netfilter.h) \
     $(wildcard include/config/ipv6/ndisc/nodetype.h) \
     $(wildcard include/config/network/secmark.h) \
+    $(wildcard include/config/have/efficient/unaligned/access.h) \
     $(wildcard include/config/network/phy/timestamping.h) \
     $(wildcard include/config/netfilter/xt/target/trace.h) \
     $(wildcard include/config/nf/tables.h) \
     $(wildcard include/config/ip/vs.h) \
   include/linux/textsearch.h \
+  include/linux/slab.h \
+    $(wildcard include/config/debug/slab.h) \
+    $(wildcard include/config/failslab.h) \
+    $(wildcard include/config/have/hardened/usercopy/allocator.h) \
+    $(wildcard include/config/slab.h) \
+    $(wildcard include/config/slub.h) \
+  include/linux/kmemleak.h \
+    $(wildcard include/config/debug/kmemleak.h) \
+  include/linux/kasan.h \
   include/net/checksum.h \
   include/linux/uaccess.h \
-  include/linux/kasan-checks.h \
   arch/x86/include/asm/uaccess.h \
     $(wildcard include/config/x86/intel/usercopy.h) \
   arch/x86/include/asm/smap.h \
     $(wildcard include/config/x86/smap.h) \
+  arch/x86/include/asm/extable.h \
   arch/x86/include/asm/uaccess_64.h \
   arch/x86/include/asm/checksum.h \
   arch/x86/include/asm/checksum_64.h \
@@ -993,6 +979,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/linux/scatterlist.h \
     $(wildcard include/config/debug/sg.h) \
     $(wildcard include/config/need/sg/dma/length.h) \
+    $(wildcard include/config/sgl/alloc.h) \
     $(wildcard include/config/arch/has/sg/chain.h) \
     $(wildcard include/config/sg/pool.h) \
   include/linux/mm.h \
@@ -1005,6 +992,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/device/private.h) \
     $(wildcard include/config/device/public.h) \
     $(wildcard include/config/shmem.h) \
+    $(wildcard include/config/have/memblock.h) \
     $(wildcard include/config/debug/vm/rb.h) \
     $(wildcard include/config/page/poisoning.h) \
     $(wildcard include/config/debug/pagealloc.h) \
@@ -1032,7 +1020,9 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/have/arch/soft/dirty.h) \
     $(wildcard include/config/arch/enable/thp/migration.h) \
   arch/x86/include/asm/pgtable_64.h \
+  arch/x86/include/asm/pgtable-invert.h \
   include/asm-generic/pgtable.h \
+    $(wildcard include/config/have/arch/huge/vmap.h) \
     $(wildcard include/config/x86/espfix64.h) \
   include/linux/huge_mm.h \
   include/linux/sched/coredump.h \
@@ -1057,6 +1047,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/net/flow_dissector.h \
   include/linux/in6.h \
   include/uapi/linux/in6.h \
+  include/linux/siphash.h \
   include/uapi/linux/if_ether.h \
   include/linux/splice.h \
   include/linux/pipe_fs_i.h \
@@ -1127,6 +1118,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/uapi/linux/dcbnl.h \
   include/net/netprio_cgroup.h \
   include/linux/cgroup.h \
+    $(wildcard include/config/cgroup/cpuacct.h) \
     $(wildcard include/config/cgroup/net/classid.h) \
     $(wildcard include/config/cgroup/data.h) \
   include/uapi/linux/cgroupstats.h \
@@ -1135,6 +1127,15 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/linux/user_namespace.h \
     $(wildcard include/config/inotify/user.h) \
     $(wildcard include/config/persistent/keyrings.h) \
+  include/linux/kernel_stat.h \
+  include/linux/interrupt.h \
+    $(wildcard include/config/irq/forced/threading.h) \
+    $(wildcard include/config/generic/irq/probe.h) \
+    $(wildcard include/config/irq/timings.h) \
+  include/linux/irqreturn.h \
+  arch/x86/include/asm/irq.h \
+  arch/x86/include/asm/sections.h \
+  include/asm-generic/sections.h \
   include/linux/cgroup-defs.h \
   include/linux/bpf-cgroup.h \
     $(wildcard include/config/cgroup/bpf.h) \
@@ -1142,7 +1143,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
     $(wildcard include/config/efficient/unaligned/access.h) \
   include/uapi/linux/bpf_common.h \
   include/linux/cgroup_subsys.h \
-    $(wildcard include/config/cgroup/cpuacct.h) \
     $(wildcard include/config/blk/cgroup.h) \
     $(wildcard include/config/cgroup/device.h) \
     $(wildcard include/config/cgroup/freezer.h) \
@@ -1191,6 +1191,7 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/asm-generic/cacheflush.h \
   include/linux/mempool.h \
   include/linux/ioprio.h \
+  include/linux/sched/rt.h \
   include/linux/iocontext.h \
   include/linux/filter.h \
     $(wildcard include/config/arch/has/set/memory.h) \
@@ -1211,7 +1212,6 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/uapi/linux/if_addr.h \
   include/net/rtnetlink.h \
   include/net/netlink.h \
-    $(wildcard include/config/have/efficient/unaligned/access.h) \
   include/uapi/linux/filter.h \
   include/linux/rculist_nulls.h \
   include/linux/poll.h \
@@ -1223,8 +1223,8 @@ deps_/home/waffle/OS-Project-2/ksocket/ksocket.o := \
   include/net/tcp_states.h \
   include/uapi/linux/net_tstamp.h \
   include/net/smc.h \
-  /home/waffle/OS-Project-2/ksocket/ksocket.h \
+  /home/anthony/os-project2/ksocket/ksocket.h \
 
-/home/waffle/OS-Project-2/ksocket/ksocket.o: $(deps_/home/waffle/OS-Project-2/ksocket/ksocket.o)
+/home/anthony/os-project2/ksocket/ksocket.o: $(deps_/home/anthony/os-project2/ksocket/ksocket.o)
 
-$(deps_/home/waffle/OS-Project-2/ksocket/ksocket.o):
+$(deps_/home/anthony/os-project2/ksocket/ksocket.o):

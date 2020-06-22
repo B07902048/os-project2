@@ -1,3 +1,4 @@
+
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/string.h>
@@ -31,7 +32,7 @@
 
 
 #define BUF_SIZE 512
-
+#define MAP_SIZE (PAGE_SIZE * 100)
 
 
 
@@ -119,11 +120,13 @@ static void __exit slave_exit(void)
 
 int slave_close(struct inode *inode, struct file *filp)
 {
+    kfree(filp->private_data);
     return 0;
 }
 
 int slave_open(struct inode *inode, struct file *filp)
 {
+    filp->private_data = kmalloc(MAP_SIZE, GFP_KERNEL);
     return 0;
 }
 static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
@@ -133,10 +136,10 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
     int addr_len ;
     unsigned int i;
     size_t len, data_size = 0;
+    int rec = 0;
     char *tmp, ip[20], buf[BUF_SIZE];
     struct page *p_print;
     unsigned char *px;
-
     pgd_t *pgd;
     p4d_t *p4d;
     pud_t *pud;
@@ -181,7 +184,13 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
         	ret = 0;
         	break;
         case slave_IOCTL_MMAP: // similar to master_device
-            ret = krecv(sockfd_cli, file->private_data, PAGE_SIZE, 0);
+            while(1){
+                rec = krecv(sockfd_cli, buf, sizeof(buf), 0);
+                if(rec == 0) break;
+                memcpy(file->private_data + data_size, buf, rec);
+                data_size += rec;
+            }
+            ret = data_size;
             break;
         case slave_IOCTL_EXIT: // copy from master_device
             if(kclose(sockfd_cli) == -1)

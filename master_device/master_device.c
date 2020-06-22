@@ -30,7 +30,7 @@
 #define master_IOCTL_MMAP 0x12345678
 #define master_IOCTL_EXIT 0x12345679
 #define BUF_SIZE 512
-#define MAP_SIZE (PAGE_SIZE * 10)
+#define MAP_SIZE (PAGE_SIZE * 100)
 typedef struct socket * ksocket_t;
 
 struct dentry  *file1;//debug file
@@ -194,7 +194,7 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
         	ret = 0;
         	break;
         case master_IOCTL_MMAP:
-		printk("data = %s\n", file->private_data);
+            printk("data = %s\n", file->private_data);
         	ret = ksend(sockfd_cli, file->private_data, ioctl_param, 0);
         	break;
         case master_IOCTL_EXIT:
