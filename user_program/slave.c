@@ -65,8 +65,7 @@ int main (int argc, char* argv[])
         	} while(ret > 0);
         	break;
         case 'm': //mmap
-            while ((ret = read(dev_fd, buf, sizeof(buf))) > 0)
-            {
+            while ((ret = read(dev_fd, buf, sizeof(buf))) > 0){
                 if (file_size % mmap_size == 0) {
             	   if (file_size) {
                         ioctl(dev_fd, 0x12345676, (unsigned long)dst);

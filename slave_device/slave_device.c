@@ -222,8 +222,7 @@ ssize_t receive_msg(struct file *filp, char *buf, size_t count, loff_t *offp )
     char msg[BUF_SIZE];
     size_t len;
     len = krecv(sockfd_cli, msg, sizeof(msg), 0);
-    if(copy_to_user(buf, msg, len))
-	return -ENOMEM;
+    if(copy_to_user(buf, msg, len)) return -ENOMEM;
     return len;
 }
 
