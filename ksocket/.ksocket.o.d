@@ -1,4 +1,4 @@
-ksocket.o: /home/waffle/OS-Project-2/ksocket/ksocket.c \
+ksocket.o: /home/waffle/os-project2/ksocket/ksocket.c \
  include/linux/kconfig.h include/generated/autoconf.h \
  include/linux/compiler_types.h include/linux/compiler-gcc.h \
  include/linux/module.h include/linux/list.h include/linux/types.h \
@@ -300,4 +300,4 @@ ksocket.o: /home/waffle/OS-Project-2/ksocket/ksocket.c \
  include/uapi/asm-generic/poll.h include/net/dst.h \
  include/net/neighbour.h include/net/tcp_states.h \
  include/uapi/linux/net_tstamp.h include/net/smc.h \
- /home/waffle/OS-Project-2/ksocket/ksocket.h
+ /home/waffle/os-project2/ksocket/ksocket.h

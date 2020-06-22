@@ -1,3 +1,3 @@
-/home/waffle/OS-Project-2/slave_device/slave_device.ko
-/home/waffle/OS-Project-2/slave_device/slave_device.o
+/home/waffle/os-project2/slave_device/slave_device.ko
+/home/waffle/os-project2/slave_device/slave_device.o
 

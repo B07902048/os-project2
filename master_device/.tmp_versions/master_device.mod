@@ -1,3 +1,3 @@
-/home/waffle/OS-Project-2/master_device/master_device.ko
-/home/waffle/OS-Project-2/master_device/master_device.o
+/home/waffle/os-project2/master_device/master_device.ko
+/home/waffle/os-project2/master_device/master_device.o
 
