@@ -8,17 +8,20 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/time.h>
+#include <stdlib.h>
+
 
 #define PAGE_SIZE 4096
 #define BUF_SIZE 512
 #define MAP_SIZE (10 * PAGE_SIZE)
+#define MAX_FILE_NUM 100
+
 size_t get_filesize(const char* filename);//get the size of the input file
 
 
-int main (int argc, char* argv[])
-{
+int main (int argc, char* argv[]){
     char buf[BUF_SIZE];
-    int i, dev_fd, file_fd;// the fd for the device and the fd for the input file
+    int N, dev_fd, file_fd;// the fd for the device and the fd for the input file
     size_t ret, file_size, offset = 0, tmp;
     char file_name[50], method[20];
     char *kernel_address = NULL, *file_address = NULL;
@@ -29,29 +32,27 @@ int main (int argc, char* argv[])
 
     strcpy(file_name, argv[1]);
     strcpy(method, argv[2]);
+    N = atoi(argv[1]);
+    for(int i = 0; i < N; i++)
+        strcpy(file_name[i], argv[i + 2]);
+    strcpy(method, argv[N + 2]);
 
-
-    if( (dev_fd = open("/dev/master_device", O_RDWR)) < 0)
-    {
+    if((dev_fd = open("/dev/master_device", O_RDWR)) < 0){
     	perror("failed to open /dev/master_device\n");
     	return 1;
     }
     gettimeofday(&start ,NULL);
-    if( (file_fd = open (file_name, O_RDWR)) < 0 )
-    {
+    if((file_fd = open (file_name, O_RDWR)) < 0){
     	perror("failed to open input file\n");
     	return 1;
     }
 
-    if( (file_size = get_filesize(file_name)) < 0)
-    {
+    if((file_size = get_filesize(file_name)) < 0){
     	perror("failed to get filesize\n");
     	return 1;
     }
 
-
-    if(ioctl(dev_fd, 0x12345677) == -1) //0x12345677 : create socket and accept the connection from the slave
-    {
+    if(ioctl(dev_fd, 0x12345677) == -1){ //0x12345677 : create socket and accept the connection from the slave
     	perror("ioclt server create socket error\n");
     	return 1;
     }
@@ -59,22 +60,18 @@ int main (int argc, char* argv[])
     char *src, *dst;
     size_t length;
     
-    switch(method[0]) 
-    {
+    switch(method[0]){
         case 'f': //fcntl : read()/write()
-            do
-            {
+            do{
                 ret = read(file_fd, buf, sizeof(buf)); // read from the input file
                 write(dev_fd, buf, ret);//write to the the device
             }while(ret > 0);
             break;
         case 'm': //mmap
             offset = 0;
-            while (offset < file_size) {
+            while (offset < file_size){
                 length = MAP_SIZE;
-                if(file_size - offset < length){
-                    length = file_size - offset;
-                }
+                if(file_size - offset < length) length = file_size - offset;
                 if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, file_fd, offset)) == (void *) -1) {
                     perror("mapping input file");
                     return 1;
