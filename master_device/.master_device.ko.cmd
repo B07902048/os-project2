@@ -1,0 +1,1 @@
+cmd_/home/waffle/OS-Project-2/master_device/master_device.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/waffle/OS-Project-2/master_device/master_device.ko /home/waffle/OS-Project-2/master_device/master_device.o /home/waffle/OS-Project-2/master_device/master_device.mod.o ;  true

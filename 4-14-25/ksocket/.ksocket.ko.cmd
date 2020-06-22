@@ -1,1 +1,0 @@
-cmd_/home/anthony/os-project2/4-14-25/ksocket/ksocket.ko := ld -r -m elf_x86_64 -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/anthony/os-project2/4-14-25/ksocket/ksocket.ko /home/anthony/os-project2/4-14-25/ksocket/ksocket.o /home/anthony/os-project2/4-14-25/ksocket/ksocket.mod.o ;  true
