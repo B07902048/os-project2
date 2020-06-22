@@ -32,7 +32,7 @@
 
 
 #define BUF_SIZE 512
-#define MAP_SIZE (PAGE_SIZE * 100)
+#define MAP_SIZE (PAGE_SIZE * 10)
 
 
 
@@ -186,6 +186,7 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
         case slave_IOCTL_MMAP: // similar to master_device
             while(1){
                 rec = krecv(sockfd_cli, buf, sizeof(buf), 0);
+                printk("rec = %l\n", rec);
                 if(rec == 0) break;
                 memcpy(file->private_data + data_size, buf, rec);
                 data_size += rec;
