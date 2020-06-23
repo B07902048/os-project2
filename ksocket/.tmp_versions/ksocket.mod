@@ -1,3 +1,3 @@
-/home/anthony/os-project2/ksocket/ksocket.ko
-/home/anthony/os-project2/ksocket/ksocket.o
+/home/zhiguan/Desktop/os-project2/ksocket/ksocket.ko
+/home/zhiguan/Desktop/os-project2/ksocket/ksocket.o
 

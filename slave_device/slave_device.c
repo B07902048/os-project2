@@ -136,7 +136,7 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
     int addr_len ;
     unsigned int i;
     size_t len, data_size = 0;
-    int rec = 0;
+    int rec = 0, rec_piece = 0;
     char *tmp, ip[20], buf[MAP_SIZE];
     struct page *p_print;
     unsigned char *px;
@@ -185,8 +185,9 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
         	break;
         case slave_IOCTL_MMAP: // similar to master_device
             do {
-                rec += krecv(sockfd_cli, file->private_data, MAP_SIZE, 0);
-            } while (rec < MAP_SIZE && rec != 0);
+                rec_piece = krecv(sockfd_cli, file->private_data+rec, MAP_SIZE-rec, 0);
+                rec += rec_piece;
+            } while (rec < MAP_SIZE && rec_piece != 0);
             // printk("slave device buf: %s\n", buf);
             // if(rec != 0) memcpy(file->private_data, buf, rec);
             ret = rec;

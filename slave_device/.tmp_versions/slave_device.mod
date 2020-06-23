@@ -1,3 +1,3 @@
-/home/anthony/os-project2/slave_device/slave_device.ko
-/home/anthony/os-project2/slave_device/slave_device.o
+/home/zhiguan/Desktop/os-project2/slave_device/slave_device.ko
+/home/zhiguan/Desktop/os-project2/slave_device/slave_device.o
 
