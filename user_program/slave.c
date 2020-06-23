@@ -67,25 +67,27 @@ int main (int argc, char* argv[]){
             	break;
             case 'm': //mmap
                 offset = 0;
-                //while(1){
+                while(1){
                     length = ioctl(dev_fd, 0x12345678, 0);
+                    if(length == 0){
+                        file_size = offset;
+                        break;
+                    }
                     printf("slave length: %lu\n", length);
                     if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, 0)) == (void *) -1) {
                         perror("mapping input device");
                         return 1;
                     }
-                    printf("slave: src = %s\n", src);
-                    printf("slave start at %lX\n", src);
                     ftruncate(file_fd, length);
                     if((dst = mmap(NULL, length, PROT_WRITE, MAP_SHARED, file_fd, offset)) == (void *) -1) {
                         perror("mapping output file");
                         return 1;
                     }
                     memcpy(dst, src, length);
-                    munmap(src, length);
-                    munmap(dst, length);
-                    //offset += length;
-                //}
+                    //munmap(src, length);
+                    //munmap(dst, length);
+                    offset += length;
+                }
                 
                 ioctl(dev_fd, 0x12345676, (unsigned long)dst);
                 munmap(src, length);
