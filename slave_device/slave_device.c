@@ -137,7 +137,7 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
     unsigned int i;
     size_t len, data_size = 0;
     int rec = 0;
-    char *tmp, ip[20], buf[BUF_SIZE];
+    char *tmp, ip[20], buf[MAP_SIZE];
     struct page *p_print;
     unsigned char *px;
     pgd_t *pgd;
@@ -184,18 +184,14 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
         	ret = 0;
         	break;
         case slave_IOCTL_MMAP: // similar to master_device
-            while(1){
-                rec = krecv(sockfd_cli, buf, sizeof(buf), 0);
-                printk("rec = %l\n", rec);
-                if(rec == 0) break;
-                memcpy(file->private_data + data_size, buf, rec);
-                data_size += rec;
-            }
-            ret = data_size;
+            rec = krecv(sockfd_cli, buf, sizeof(buf), 0);
+            printk("slave rec = %d\n", rec);
+            //if(rec != 0) memcpy(file->private_data, buf, rec);
+            //ret = rec;
+            //printk("slave data_size = %d\n", ret);
             break;
         case slave_IOCTL_EXIT: // copy from master_device
-            if(kclose(sockfd_cli) == -1)
-            {
+            if(kclose(sockfd_cli) == -1){
                 printk("kclose cli error\n");
                 return -1;
             }
@@ -217,7 +213,7 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
     return ret;
 }
 
-ssize_t receive_msg(struct file *filp, char *buf, size_t count, loff_t *offp )
+ssize_t receive_msg(struct file *filp, char *buf, size_t count, loff_t *offp)
 {
 //call when user is reading from this device
     char msg[BUF_SIZE];

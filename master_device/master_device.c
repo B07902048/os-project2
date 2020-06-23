@@ -160,6 +160,7 @@ int master_close(struct inode *inode, struct file *filp)
 
 int master_open(struct inode *inode, struct file *filp)
 {
+    printk("master is opened!\n");
     filp->private_data = kmalloc(MAP_SIZE, GFP_KERNEL);
     return 0;
 }
@@ -180,8 +181,7 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
     switch(ioctl_num){
         case master_IOCTL_CREATESOCK:// create socket and accept a connection
         	sockfd_cli = kaccept(sockfd_srv, (struct sockaddr *)&addr_cli, &addr_len);
-        	if (sockfd_cli == NULL)
-        	{
+        	if (sockfd_cli == NULL){
         	    printk("accept failed\n");
         	    return -1;
         	}
@@ -194,8 +194,8 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
         	ret = 0;
         	break;
         case master_IOCTL_MMAP:
-            printk("data = %s\n", file->private_data);
         	ret = ksend(sockfd_cli, file->private_data, ioctl_param, 0);
+            printk("master data_size = %d\n", ret);
         	break;
         case master_IOCTL_EXIT:
         	if(kclose(sockfd_cli) == -1)
