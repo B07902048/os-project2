@@ -185,11 +185,10 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
         	break;
         case slave_IOCTL_MMAP: // similar to master_device
             rec = krecv(sockfd_cli, buf, sizeof(buf), 0);
-            printk("slave rec = %d\n", rec);
-            //return rec;
-            //if(rec != 0) memcpy(file->private_data, buf, rec);
-            //ret = rec;
-            //printk("slave data_size = %d\n", ret);
+            printk("slave device buf: %s\n", buf);
+            if(rec != 0) memcpy(file->private_data, buf, rec);
+            ret = rec;
+            printk("slave data_size = %d\n", ret);
             break;
         case slave_IOCTL_EXIT: // copy from master_device
             if(kclose(sockfd_cli) == -1){
@@ -227,7 +226,7 @@ ssize_t receive_msg(struct file *filp, char *buf, size_t count, loff_t *offp)
 // for mmap
 static int my_mmap(struct file *filp, struct vm_area_struct *vma)
 {
-	if (remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff, vma->vm_end - vma->vm_start, vma->vm_page_prot))
+	if (remap_pfn_range(vma, vma->vm_start, virt_to_phys(filp->private_data)>>PAGE_SHIFT, vma->vm_end - vma->vm_start, vma->vm_page_prot))
 		return -EIO;
 	vma->vm_flags |= VM_RESERVED;
 	vma->vm_private_data = filp->private_data;
