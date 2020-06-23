@@ -32,7 +32,7 @@
 
 
 #define BUF_SIZE 512
-#define MAP_SIZE (PAGE_SIZE * 10)
+#define MAP_SIZE (PAGE_SIZE * 100)
 
 
 
@@ -167,13 +167,11 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
 
         	sockfd_cli = ksocket(AF_INET, SOCK_STREAM, 0);
         	printk("sockfd_cli = 0x%p  socket is created\n", sockfd_cli);
-        	if (sockfd_cli == NULL)
-        	{
+        	if (sockfd_cli == NULL){
         	    printk("socket failed\n");
         	    return -1;
         	}
-        	if (kconnect(sockfd_cli, (struct sockaddr*)&addr_srv, addr_len) < 0)
-        	{
+        	if (kconnect(sockfd_cli, (struct sockaddr*)&addr_srv, addr_len) < 0){
         	    printk("connect failed\n");
         	    return -1;
         	}
@@ -191,7 +189,7 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
             // printk("slave device buf: %s\n", buf);
             // if(rec != 0) memcpy(file->private_data, buf, rec);
             ret = rec;
-            printk("slave data_size = %d\n", ret);
+            //printk("slave data_size = %d\n", ret);
             break;
         case slave_IOCTL_EXIT: // copy from master_device
             if(kclose(sockfd_cli) == -1){

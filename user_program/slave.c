@@ -14,12 +14,12 @@
 #define PAGE_SIZE 4096
 #define BUF_SIZE 512
 #define MAX_FILE_NUM 100
-#define MAP_SIZE (PAGE_SIZE * 10)
+#define MAP_SIZE (PAGE_SIZE * 100)
 int main (int argc, char* argv[]){
     char buf[BUF_SIZE];
     //char buf[BUF_SIZE];
     int N, dev_fd, file_fd, offset = 0;;// the fd for the device and the fd for the input file
-    size_t ret, file_size = 0, data_size = -1;
+    size_t ret, file_size = 0, total_file_size = 0, data_size = -1;
     char file_name[MAX_FILE_NUM][50];
     char method[20];
     char ip[20];
@@ -62,23 +62,19 @@ int main (int argc, char* argv[]){
             	do{
             	    ret = read(dev_fd, buf, sizeof(buf)); // read from the the device
             	    write(file_fd, buf, ret); //write to the input file
-            	    file_size += ret;
+            	    total_file_size += ret;
             	} while(ret > 0);
             	break;
             case 'm': //mmap
                 offset = 0;
                 while(1){
                     length = ioctl(dev_fd, 0x12345678, 0);
-                    if(length == 0){
-                        file_size += offset;
-                        break;
-                    }
-                    printf("slave length: %lu\n", length);
+                    if(length == 0) break;
+                    //printf("slave length: %lu\n", length);
                     if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
                         perror("slave mapping input device");
                         return 1;
                     }
-                    
                     posix_fallocate(file_fd, offset, length);
                     if((dst = mmap(NULL, length, PROT_WRITE, MAP_SHARED, file_fd, offset)) == (void *) -1) {
                         perror("slave mapping output file");
@@ -89,6 +85,7 @@ int main (int argc, char* argv[]){
                     munmap(src, length);
                     munmap(dst, length);
                     offset += length;
+                    total_file_size += length;
                 }
                 break;
         }
@@ -102,7 +99,7 @@ int main (int argc, char* argv[]){
     }
     gettimeofday(&end, NULL);
     trans_time = (end.tv_sec - start.tv_sec)*1000 + (end.tv_usec - start.tv_usec)*0.0001;
-    printf("Transmission time: %lf ms, File size: %ld bytes\n", trans_time, file_size / 8);
+    printf("Transmission time: %lf ms, File size: %ld bytes\n", trans_time, total_file_size / 8);
 
     
     return 0;

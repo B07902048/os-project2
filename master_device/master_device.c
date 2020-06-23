@@ -30,7 +30,7 @@
 #define master_IOCTL_MMAP 0x12345678
 #define master_IOCTL_EXIT 0x12345679
 #define BUF_SIZE 512
-#define MAP_SIZE (PAGE_SIZE * 10)
+#define MAP_SIZE (PAGE_SIZE * 100)
 typedef struct socket * ksocket_t;
 
 struct dentry  *file1;//debug file
@@ -223,7 +223,7 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
 static ssize_t send_msg(struct file *file, const char __user *buf, size_t count, loff_t *data)
 {
 //call when user is writing to this device
-    char msg[MAP_SIZE];
+    char msg[BUF_SIZE];
     if(copy_from_user(msg, buf, count))
 	return -ENOMEM;
     ksend(sockfd_cli, msg, count, 0);
