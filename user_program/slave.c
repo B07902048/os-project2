@@ -14,7 +14,7 @@
 #define PAGE_SIZE 4096
 #define BUF_SIZE 512
 #define MAX_FILE_NUM 100
-#define MAP_SIZE (PAGE_SIZE * 100)
+#define MAP_SIZE (PAGE_SIZE * 10)
 int main (int argc, char* argv[]){
     char buf[BUF_SIZE];
     //char buf[BUF_SIZE];
@@ -70,18 +70,18 @@ int main (int argc, char* argv[]){
                 while(1){
                     length = ioctl(dev_fd, 0x12345678, 0);
                     if(length == 0){
-                        file_size = offset;
+                        file_size += offset;
                         break;
                     }
                     printf("slave length: %lu\n", length);
                     if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
-                        perror("mapping input device");
+                        perror("slave mapping input device");
                         return 1;
                     }
                     
                     posix_fallocate(file_fd, offset, length);
                     if((dst = mmap(NULL, length, PROT_WRITE, MAP_SHARED, file_fd, offset)) == (void *) -1) {
-                        perror("mapping output file");
+                        perror("slave mapping output file");
                         return 1;
                     }
                     memcpy(dst, src, length);
@@ -90,7 +90,6 @@ int main (int argc, char* argv[]){
                     munmap(dst, length);
                     offset += length;
                 }
-                //munmap(src, length);
                 break;
         }
 

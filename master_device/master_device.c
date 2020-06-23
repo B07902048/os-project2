@@ -223,7 +223,7 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
 static ssize_t send_msg(struct file *file, const char __user *buf, size_t count, loff_t *data)
 {
 //call when user is writing to this device
-    char msg[BUF_SIZE];
+    char msg[MAP_SIZE];
     if(copy_from_user(msg, buf, count))
 	return -ENOMEM;
     ksend(sockfd_cli, msg, count, 0);

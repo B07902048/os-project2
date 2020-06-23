@@ -72,11 +72,11 @@ int main (int argc, char* argv[]){
                     length = MAP_SIZE;
                     if(file_size - offset < length) length = file_size - offset;
                     if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, file_fd, offset)) == (void *) -1) {
-                        perror("mapping input file");
+                        perror("master mapping input file");
                         return 1;
                     }
                     if((dst = mmap(NULL, length, PROT_WRITE, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
-                        perror("mapping output device");
+                        perror("master mapping output device");
                         return 1;
                     }
                     memcpy(dst, src, length);
