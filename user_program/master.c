@@ -58,6 +58,7 @@ int main (int argc, char* argv[]){
 
         char *src, *dst;
         size_t length;
+        char fs_buf[BUF_SIZE];
         switch(method[0]){
             case 'f': //fcntl : read()/write()
                 do{
@@ -66,7 +67,6 @@ int main (int argc, char* argv[]){
                 }while(ret > 0);
                 break;
             case 'm': //mmap
-                write(dev_fd, &file_size, sizeof(size_t));
                 offset = 0;
                 while (offset < file_size){
                     length = MAP_SIZE;

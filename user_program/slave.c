@@ -69,7 +69,7 @@ int main (int argc, char* argv[]){
                 offset = 0;
                 
                 length = ioctl(dev_fd, 0x12345678, 0);
-                printf("slave length: %lu\n", length);
+                //printf("slave length: %lu\n", length);
                 //if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, 0)) == (void *) -1) {
                 //    perror("mapping input device");
                 //    return 1;
@@ -87,24 +87,6 @@ int main (int argc, char* argv[]){
                 
                 //munmap(src, length);
                 //}
-
-
-                /*while((ret = read(dev_fd, buf, sizeof(buf))) > 0){
-                    if (file_size % mmap_size == 0) {
-                	   if (file_size){
-                            ioctl(dev_fd, 0x12345676, (unsigned long)dst);
-                            //munmap(dst, mmap_size);
-                        }
-
-                	   ftruncate(file_fd, file_size+mmap_size);
-                	   if((dst = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, file_fd, file_size)) == (void *) -1) {
-                		    perror("mapping output file");
-                	       return 1;
-                	   }
-                    }
-                    memcpy(&dst[file_size%mmap_size], buf, ret);
-                    file_size += ret;
-                };*/
                 
                 ioctl(dev_fd, 0x12345676, (unsigned long)dst);
                 //munmap(dst, mmap_size);
