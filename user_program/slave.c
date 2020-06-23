@@ -74,17 +74,18 @@ int main (int argc, char* argv[]){
                         break;
                     }
                     printf("slave length: %lu\n", length);
-                    if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, 0)) == (void *) -1) {
+                    if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
                         perror("mapping input device");
                         return 1;
                     }
-                    ftruncate(file_fd, length);
+                    
+                    posix_fallocate(file_fd, offset, length);
                     if((dst = mmap(NULL, length, PROT_WRITE, MAP_SHARED, file_fd, offset)) == (void *) -1) {
                         perror("mapping output file");
                         return 1;
                     }
                     memcpy(dst, src, length);
-                    //ioctl(dev_fd, 0x12345676, (unsigned long)dst);
+                    ioctl(dev_fd, 0x12345676, (unsigned long)dst);
                     munmap(src, length);
                     munmap(dst, length);
                     offset += length;

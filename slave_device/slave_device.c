@@ -184,9 +184,9 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
         	ret = 0;
         	break;
         case slave_IOCTL_MMAP: // similar to master_device
-            rec = krecv(sockfd_cli, buf, sizeof(buf), 0);
-            printk("slave device buf: %s\n", buf);
-            if(rec != 0) memcpy(file->private_data, buf, rec);
+            rec = krecv(sockfd_cli, file->private_data, MAP_SIZE, 0);
+            // printk("slave device buf: %s\n", buf);
+            // if(rec != 0) memcpy(file->private_data, buf, rec);
             ret = rec;
             printk("slave data_size = %d\n", ret);
             break;
