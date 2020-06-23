@@ -84,13 +84,12 @@ int main (int argc, char* argv[]){
                         return 1;
                     }
                     memcpy(dst, src, length);
-                    //munmap(src, length);
-                    //munmap(dst, length);
+                    //ioctl(dev_fd, 0x12345676, (unsigned long)dst);
+                    munmap(src, length);
+                    munmap(dst, length);
                     offset += length;
                 }
-                
-                ioctl(dev_fd, 0x12345676, (unsigned long)dst);
-                munmap(src, length);
+                //munmap(src, length);
                 break;
         }
 

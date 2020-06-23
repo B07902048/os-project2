@@ -82,7 +82,8 @@ int main (int argc, char* argv[]){
                     memcpy(dst, src, length);
                     offset += length;
                     ioctl(dev_fd, 0x12345678, length);
-                    //munmap(src, PAGE_SIZE);
+                    munmap(src, length);
+                    munmap(dst, length);
                 }
                 break;
         }
