@@ -1,5 +1,4 @@
 cd ./ksocket
-# make
 make CFLAGS=-DBONUS
 insmod ksocket.ko
 

@@ -189,7 +189,7 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
         	break;
         case master_IOCTL_MMAP:
         	ret = ksend(sockfd_cli, file->private_data, ioctl_param, 0);
-            printk("master data_size = %d\n", ret);
+            //printk("master data_size = %d\n", ret);
         	break;
         case master_IOCTL_EXIT:
         	if(kclose(sockfd_cli) == -1)
@@ -214,7 +214,7 @@ static long master_ioctl(struct file *file, unsigned int ioctl_num, unsigned lon
     set_fs(old_fs);
     return ret;
 }
-static ssize_t send_msg(struct file *file, const char __user *buf, size_t count, loff_t *data)
+static ssize_t send_msg(struct  file *file, const char __user *buf, size_t count, loff_t *data)
 {
 //call when user is writing to this device
     char msg[BUF_SIZE];

@@ -4,3 +4,4 @@ cd ..
 ./compile.sh
 cd user_program
 dmesg -c
+clear

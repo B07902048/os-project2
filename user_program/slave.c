@@ -56,7 +56,7 @@ int main (int argc, char* argv[]){
 
         char *src, *dst;
         size_t length;
-
+        int print_once = 0;
         switch(method[0]){
             case 'f': //fcntl : read()/write()
             	do{
@@ -80,11 +80,15 @@ int main (int argc, char* argv[]){
                         return 1;
                     }
                     memcpy(dst, src, length);
-                    ioctl(dev_fd, 0x12345676, (unsigned long)dst);
+                    if(!print_once){
+                        ioctl(dev_fd, 0x12345676, (unsigned long)src);
+                        print_once = 1;
+                    }
                     munmap(src, length);
                     munmap(dst, length);
                     offset += length;
                 }
+
                 total_file_size += offset;
                 break;
         }

@@ -57,7 +57,7 @@ int main (int argc, char* argv[]){
 
         char *src, *dst;
         size_t length;
-        char fs_buf[BUF_SIZE];
+        int print_once = 0;
         switch(method[0]){
             case 'f': //fcntl : read()/write()
                 do{
@@ -81,9 +81,14 @@ int main (int argc, char* argv[]){
                     memcpy(dst, src, length);
                     offset += length;
                     ioctl(dev_fd, 0x12345678, length);
+                    if(!print_once){
+                        ioctl(dev_fd, 0x12345676, (unsigned long)dst);
+                        print_once = 1;
+                    }
                     munmap(src, length);
                     munmap(dst, length);
                 }
+
                 break;
         }
 

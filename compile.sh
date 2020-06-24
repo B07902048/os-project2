@@ -1,6 +1,5 @@
 cd ./ksocket
 make
-# make CFLAGS=-DMEOW
 insmod ksocket.ko
 
 cd ../master_device
