@@ -70,7 +70,6 @@ int main (int argc, char* argv[]){
                 while(1){
                     length = ioctl(dev_fd, 0x12345678, 0);
                     if(length == 0) break;
-                    //printf("slave length: %lu\n", length);
                     if((src = mmap(NULL, length, PROT_READ, MAP_SHARED, dev_fd, offset)) == (void *) -1) {
                         perror("slave mapping input device");
                         return 1;
@@ -85,8 +84,8 @@ int main (int argc, char* argv[]){
                     munmap(src, length);
                     munmap(dst, length);
                     offset += length;
-                    total_file_size += length;
                 }
+                total_file_size += offset;
                 break;
         }
 

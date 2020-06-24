@@ -74,11 +74,9 @@ static struct file_operations master_fops = {
     .open = master_open,
     .write = send_msg,
     .release = master_close,
-	// for mmap
 	.mmap = my_mmap
 };
 
-// for mmap
 struct vm_operations_struct mmap_vm_ops = {
     .open = mmap_open,
     .close = mmap_close
@@ -91,13 +89,12 @@ static struct miscdevice master_dev = {
     .fops = &master_fops
 };
 
-static int __init master_init(void)
-{
+static int __init master_init(void){
     int ret;
     file1 = debugfs_create_file("master_debug", 0644, NULL, NULL, &master_fops);
 
     //register the device
-    if( (ret = misc_register(&master_dev)) < 0){
+    if((ret = misc_register(&master_dev)) < 0){
     	printk(KERN_ERR "misc_register failed!\n");
     	return ret;
     }
@@ -152,15 +149,12 @@ static void __exit master_exit(void)
     debugfs_remove(file1);
 }
 
-int master_close(struct inode *inode, struct file *filp)
-{
+int master_close(struct inode *inode, struct file *filp){
     kfree(filp->private_data);
     return 0;
 }
 
-int master_open(struct inode *inode, struct file *filp)
-{
-    printk("master is opened!\n");
+int master_open(struct inode *inode, struct file *filp){
     filp->private_data = kmalloc(MAP_SIZE, GFP_KERNEL);
     return 0;
 }

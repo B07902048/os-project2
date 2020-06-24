@@ -75,7 +75,6 @@ static struct file_operations slave_fops = {
     .open = slave_open,
     .read = receive_msg,
     .release = slave_close,
-    // for mmap
     .mmap = my_mmap
 };
 
@@ -186,10 +185,7 @@ static long slave_ioctl(struct file *file, unsigned int ioctl_num, unsigned long
                 rec_piece = krecv(sockfd_cli, file->private_data + rec, MAP_SIZE - rec, 0);
                 rec += rec_piece;
             } while (rec < MAP_SIZE && rec_piece != 0);
-            // printk("slave device buf: %s\n", buf);
-            // if(rec != 0) memcpy(file->private_data, buf, rec);
             ret = rec;
-            //printk("slave data_size = %d\n", ret);
             break;
         case slave_IOCTL_EXIT: // copy from master_device
             if(kclose(sockfd_cli) == -1){
@@ -225,13 +221,12 @@ ssize_t receive_msg(struct file *filp, char *buf, size_t count, loff_t *offp)
 }
 
 // for mmap
-static int my_mmap(struct file *filp, struct vm_area_struct *vma)
-{
-	if (remap_pfn_range(vma, vma->vm_start, virt_to_phys(filp->private_data)>>PAGE_SHIFT, vma->vm_end - vma->vm_start, vma->vm_page_prot))
-		return -EIO;
+static int my_mmap(struct file *filp, struct vm_area_struct *vma){
 	vma->vm_flags |= VM_RESERVED;
 	vma->vm_private_data = filp->private_data;
 	vma->vm_ops = &mmap_vm_ops;
+    if (remap_pfn_range(vma, vma->vm_start, virt_to_phys(filp->private_data)>>PAGE_SHIFT, vma->vm_end - vma->vm_start, vma->vm_page_prot))
+        return -EIO;
 	mmap_open(vma);
 	return 0;
 }
