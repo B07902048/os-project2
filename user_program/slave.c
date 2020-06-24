@@ -52,7 +52,7 @@ int main (int argc, char* argv[]){
         	return 1;
         }
 
-        write(1, "ioctl success\n", 14);
+        //write(1, "ioctl success\n", 14);
 
         char *src, *dst;
         size_t length;
