@@ -22,8 +22,7 @@
 #include <asm/processor.h>
 #include <asm/uaccess.h>
 #include "ksocket.h"
-//#include "nested.h"
-//#include "sxgdebug.h"
+
 
 #define KSOCKET_NAME	"ksocket"
 #define KSOCKET_VERSION	"0.0.2"
@@ -35,20 +34,6 @@
 MODULE_AUTHOR(KSOCKET_AUTHOR);
 MODULE_DESCRIPTION(KSOCKET_NAME"-"KSOCKET_VERSION"\n"KSOCKET_DESCPT);
 MODULE_LICENSE("Dual BSD/GPL");
-
-/*
-static void (*origSk)(struct sock *sk, int bytes) = NULL;
-
-static void yh_sk_data_ready(struct sock *sk, int bytes)
-{
-	if (origSk) {
-		(*origSk)(sk, bytes);
-	}
-
-	wake_up_rcv();
-	return;
-}
-*/
 
 ksocket_t ksocket(int domain, int type, int protocol)
 {
@@ -62,22 +47,9 @@ ksocket_t ksocket(int domain, int type, int protocol)
 		return NULL;
 	}
 
-#ifdef MEOW
+#ifdef BONUS
     sk->flags |= FASYNC;
 #endif
-	
-	/*
-	if (sk && sk->sk) {
-		if (sk->sk->sk_data_ready) {
-			origSk = sk->sk->sk_data_ready;
-			sk->sk->sk_data_ready = yh_sk_data_ready;
-		} else {
-			printk(KERN_INFO "sk->sk->sk_data_ready is NULL\n");
-		}
-	} else {
-		printk(KERN_INFO "sk or sk->sk is NULL\n");
-	}
-	*/
 	
 	printk("sock_create sk= 0x%p\n", sk);
 	
@@ -132,15 +104,13 @@ ksocket_t kaccept(ksocket_t socket, struct sockaddr *address, int *address_len)
 
 	printk("family = %d, type = %d, protocol = %d\n",
 					sk->sk->sk_family, sk->type, sk->sk->sk_protocol);
-	//new_sk = sock_alloc();
-	//sock_alloc() is not exported, so i use sock_create() instead
 	ret = sock_create(sk->sk->sk_family, sk->type, sk->sk->sk_protocol, &new_sk);
 	if (ret < 0)
 		return NULL;
 	if (!new_sk)
 		return NULL;
 
-#ifdef MEOW
+#ifdef BONUS
     sk->flags |= FASYNC;
 #endif
 	
@@ -195,12 +165,6 @@ ssize_t krecv(ksocket_t socket, void *buffer, size_t length, int flags)
 	msg.msg_control = NULL;
 	msg.msg_controllen = 0;
 
-	/*
-	 * msg.msg_iov->iov_base is declared as follows:
-	 * void __user *iov_base;
-	 * which means there is an user space pointer in 'msg'
-	 * use set_fs(KERNEL_DS) to make the pointer safe to kernel space
-	 */
 #ifndef KSOCKET_ADDR_SAFE
 	old_fs = get_fs();
 	set_fs(KERNEL_DS);
@@ -254,13 +218,12 @@ ssize_t ksend(ksocket_t socket, const void *buffer, size_t length, int flags)
 	old_fs = get_fs();
 	set_fs(KERNEL_DS);
 #endif
-	//hardik
-	len = sock_sendmsg(sk, &msg);//?
+	len = sock_sendmsg(sk, &msg);
 #ifndef KSOCKET_ADDR_SAFE
 	set_fs(old_fs);
 #endif
 	
-	return len;//len ?
+	return len;
 }
 
 int kshutdown(ksocket_t socket, int how)
@@ -275,7 +238,6 @@ int kshutdown(ksocket_t socket, int how)
 	return ret;
 }
 
-//TODO: ?
 int kclose(ksocket_t socket)
 {
 	struct socket *sk;
@@ -438,24 +400,6 @@ int ksetsockopt(ksocket_t socket, int level, int optname, void *optval, int optl
 
 int kgetsockopt(ksocket_t socket, int level, int optname, void *optval, int *optlen)
 {
-/*	struct socket *sk;
-	int ret;
-	mm_segment_t old_fs;
-
-	sk = (struct socket *)socket;
-	
-	old_fs = get_fs();
-	set_fs(KERNEL_DS);
-
-	if (level == SOL_SOCKET)
-		ret = sock_getsockopt(sk, level, optname, optval, optlen);
-	else
-		ret = sk->ops->getsockopt(sk, level, optname, optval, optlen);
-	
-	set_fs(old_fs);
-
-	return ret;
-*/
 	return -ENOSYS;
 }
 
